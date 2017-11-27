@@ -6,7 +6,8 @@ EXPOSE 8080
 
 ENV DECONZ_MAJOR_VERSION 2
 ENV DECONZ_MINOR_VERSION 04
-ENV DECONZ_BUILD_VERSION 82
+ENV DECONZ_BUILD_VERSION 93
+ENV DECONZ_PLATFORM "rpi/deconz" # or ubuntu/deconz
 
 VOLUME ["/root/.local/share/dresden-elektronik/deCONZ"]
 
@@ -33,8 +34,8 @@ RUN usermod -a -G dialout root \
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
  && chmod +x ./start.sh
 
-RUN wget https://www.dresden-elektronik.de/deconz/ubuntu/beta/deconz-${DECONZ_MAJOR_VERSION}.${DECONZ_MINOR_VERSION}.${DECONZ_BUILD_VERSION}-qt5.deb \
- && wget https://www.dresden-elektronik.de/deconz/ubuntu/beta/deconz-dev-${DECONZ_MAJOR_VERSION}.${DECONZ_MINOR_VERSION}.${DECONZ_BUILD_VERSION}.deb \
+RUN wget https://www.dresden-elektronik.de/${DECONZ_PLATFORM}/beta/deconz-${DECONZ_MAJOR_VERSION}.${DECONZ_MINOR_VERSION}.${DECONZ_BUILD_VERSION}-qt5.deb \
+ && wget https://www.dresden-elektronik.de/${DECONZ_PLATFORM}/beta/deconz-dev-${DECONZ_MAJOR_VERSION}.${DECONZ_MINOR_VERSION}.${DECONZ_BUILD_VERSION}.deb \
  && dpkg -i deconz-${DECONZ_MAJOR_VERSION}.${DECONZ_MINOR_VERSION}.${DECONZ_BUILD_VERSION}-qt5.deb \
  && dpkg -i deconz-dev-${DECONZ_MAJOR_VERSION}.${DECONZ_MINOR_VERSION}.${DECONZ_BUILD_VERSION}.deb \
  && git clone https://github.com/dresden-elektronik/deconz-rest-plugin.git \
